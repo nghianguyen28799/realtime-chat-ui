@@ -1,25 +1,35 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import React from "react";
+import BaseLayout from "./components/BaseLayout/BaseLayout";
+import RenderRoutes from "./routes/RenderRoutes/RenderRoutes";
+import { colors } from "./utils/colors";
+
+const theme = createTheme({
+  palette: {
+    mode: "light"
+  },
+  typography: {
+    body2: {
+      fontSize: "0.85rem",
+      fontWeight: 600,
+      color: colors.textGrey
+    },
+    subtitle2: {
+      fontWeight: 600,
+    },
+    button: {
+      textTransform: "inherit",
+    },
+  },
+});
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProvider theme={theme}>
+      <BaseLayout>
+        <RenderRoutes />
+      </BaseLayout>
+    </ThemeProvider>
   );
 }
 
