@@ -1,4 +1,5 @@
 export const size = {
     headerHeight: 80,
-    sideBarWidth: 550,
+    sideBarWidth: 500,
+    chatInputHeight: 80,
 }

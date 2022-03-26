@@ -51,12 +51,12 @@ const Conversation: React.FC<IConversation> = (props) => {
 
   return (
     <Box py={"4px"}>
-      <MenuItem sx={{ borderRadius: 3, p: 1.5 }} className={classes.itemMenu} disableTouchRipple={active}>
+      <MenuItem sx={{ borderRadius: 3, px: 1.5, py: 1 }} className={classes.itemMenu} disableTouchRipple={active}>
         <ListItemIcon>
           <Avatar
             alt={name}
             src="/static/images/avatar/1.jpg"
-            sx={{ width: 52, height: 52 }}
+            sx={{ width: 46, height: 46 }}
           />
         </ListItemIcon>
         <ListItemText sx={{ px: 2 }}>
