@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 }));
 
 const Conversation: React.FC<IConversation> = (props) => {
-  const { id, name, message, timestamp, avatar, active, waitingMessages, handleChangeActive } =
+  const { id, name, active, waitingMessages, handleChangeActive } =
     props;
   const classes = useStyles({ data: { active: active ?? false, waitingMessages } });
   const themeContext = useTheme();
