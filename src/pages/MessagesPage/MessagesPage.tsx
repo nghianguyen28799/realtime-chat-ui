@@ -6,15 +6,10 @@ import Message from "../../components/Message/Message";
 import { IsMobile } from "../../utils/display";
 import { size } from "../../utils/proportion";
 
-export interface IMessage {
-  activeId: string;
-  handleChangeActive: (id: string) => void;
-}
-
-const MessagesPage: React.FC<IMessage> = ({ activeId, handleChangeActive }) => {
+const MessagesPage = () => {
   return (
     <Stack flex="1" minWidth={"300px"}>
-      <MessageHeader activeId={activeId} handleChangeActive={handleChangeActive} />
+      <MessageHeader />
       <Stack pt="1px" pl="1px">
         <Box
           sx={{

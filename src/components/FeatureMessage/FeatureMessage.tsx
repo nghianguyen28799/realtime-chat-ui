@@ -11,12 +11,10 @@ interface IFeatureMessage {
   opened?: boolean;
   handleChange?: () => void;
   data?: IConversation[];
-  activeId: string;
-  handleChangeActive: (id: string) => void;
 }
 
 const FeatureMessage: React.FC<IFeatureMessage> = (props) => {
-  const { type, opened, handleChange, data, activeId, handleChangeActive } = props;
+  const { type, opened, handleChange, data } = props;
   return (
     <Stack>
       <Grid container spacing={1}>
@@ -55,10 +53,9 @@ const FeatureMessage: React.FC<IFeatureMessage> = (props) => {
         <Collapse in={opened}>
           {data?.length
             ? data?.map((item, index) => {
-                const newItem = { ...item, active: item.id === activeId };
                 return (
                   <React.Fragment key={index}>
-                    <Conversation {...newItem} handleChangeActive={handleChangeActive} />
+                    <Conversation {...item} />
                   </React.Fragment>
                 );
               })

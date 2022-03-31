@@ -33,17 +33,11 @@ const data = [
   },
 ];
 
-interface ISideBar {
-  activeId: string;
-  handleChangeActive: (id: string) => void;
-}
-
-const SideBar: React.FC<ISideBar> = (props) => {
-  const { activeId, handleChangeActive } = props;
+const SideBar = () => {
   const themeContext = useTheme();
-  const [isGroupOpened, setGroupOpened] = React.useState<boolean>(false);
-  const [isAllOpened, setAllOpened] = React.useState<boolean>(false);
-
+  const [isGroupOpened, setGroupOpened] = React.useState<boolean>(true);
+  const [isAllOpened, setAllOpened] = React.useState<boolean>(true);
+  
   const handleChangeGroup = () => {
     setGroupOpened((prev) => !prev);
   };
@@ -60,6 +54,7 @@ const SideBar: React.FC<ISideBar> = (props) => {
         sx={{
           width: IsMobile() ? "100vw" : size.sideBarWidth,
           overflowY: "auto",
+          overflowX: "hidden",
           display: "flex",
           flexDirection: "column",
           flex: 1,
@@ -73,16 +68,8 @@ const SideBar: React.FC<ISideBar> = (props) => {
           opened={isGroupOpened}
           handleChange={handleChangeGroup}
           data={data}
-          activeId={activeId}
-          handleChangeActive={handleChangeActive}
         />
-        <FeatureMessage
-          type="all"
-          opened={isAllOpened}
-          handleChange={handleChangeAll}
-          activeId={activeId}
-          handleChangeActive={handleChangeActive}
-        />
+        <FeatureMessage type="all" opened={isAllOpened} handleChange={handleChangeAll} />
       </Paper>
     </Stack>
   );

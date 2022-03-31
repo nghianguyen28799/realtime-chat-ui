@@ -22,7 +22,7 @@ import MenuComponent from "../Menu/Menu";
 import { makeStyles } from "@mui/styles";
 import { useTheme } from "../../contexts/ThemeContext";
 import { IsMobile } from "../../utils/display";
-import { IMessage } from "../../pages/MessagesPage/MessagesPage";
+import { useNavigate } from "react-router-dom";
 
 const useStyles = makeStyles((theme: Theme) => ({
   iconButton: {
@@ -32,16 +32,23 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-const MessageHeader: React.FC<IMessage> = ({ handleChangeActive }) => {
+const MessageHeader = () => {
   const classes = useStyles();
+  const navigate = useNavigate();
   const themeContext = useTheme();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
+  
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  const onGoHome = () => {
+    navigate("/home");
+  }
+
   return (
     <Box height={size.headerHeight} pl="1px" pb="1px">
       <Paper elevation={themeContext.modeTheme === "dark" ? 1 : 0} sx={{ height: "100%" }}>
@@ -51,7 +58,7 @@ const MessageHeader: React.FC<IMessage> = ({ handleChangeActive }) => {
               <Stack height="100%" direction="row" alignItems="center">
                 {IsMobile() ? (
                   <Tooltip title="Account settings">
-                    <IconButton onClick={() => handleChangeActive("")} size="small">
+                    <IconButton onClick={onGoHome} size="small">
                       <KeyboardArrowLeftIcon />
                     </IconButton>
                   </Tooltip>

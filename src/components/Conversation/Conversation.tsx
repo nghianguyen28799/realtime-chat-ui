@@ -12,6 +12,7 @@ import React from "react";
 import { colors } from "../../utils/colors";
 import { makeStyles } from "@mui/styles";
 import { useTheme } from "../../contexts/ThemeContext";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export interface IConversation {
   id: string;
@@ -20,8 +21,6 @@ export interface IConversation {
   timestamp: Date;
   avatar: string;
   waitingMessages: number;
-  active?: boolean;
-  handleChangeActive?: (id: string) => void;
 }
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -33,10 +32,19 @@ const useStyles = makeStyles((theme: Theme) => ({
 }));
 
 const Conversation: React.FC<IConversation> = (props) => {
-  const { id, name, active, waitingMessages, handleChangeActive } =
-    props;
+  const navigate = useNavigate();
+  const { id, name, waitingMessages } = props;
+  const location = useLocation();
+  const conversId = location.pathname.split("/")[2];
+
+  const active = conversId === id;
+
   const classes = useStyles({ data: { active: active ?? false, waitingMessages } });
   const themeContext = useTheme();
+
+  const handleChangeActive = () => {
+    navigate(`/conversation/${id}`);
+  };
 
   return (
     <Box py={"4px"}>
@@ -50,7 +58,7 @@ const Conversation: React.FC<IConversation> = (props) => {
             background: active ? colors.blue : "#9e9e9e24",
           },
         }}
-        onClick={() => handleChangeActive && !active && handleChangeActive(id as string)}
+        onClick={handleChangeActive}
         disableTouchRipple={active}
       >
         <ListItemIcon>

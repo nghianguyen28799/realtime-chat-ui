@@ -1,10 +1,15 @@
 import { Stack } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import React from "react";
+import { useLocation } from "react-router-dom";
 import { useTheme } from "../../contexts/ThemeContext";
-import MessagesPage from "../../pages/MessagesPage/MessagesPage";
+import Login from "../../pages/Login/Login";
 import { IsMobile } from "../../utils/display";
 import SideBar from "../SideBar/SideBar";
+
+interface IBaseLayout {
+  children: React.ReactNode;
+}
 
 const useStyles = makeStyles(() => ({
   layout: {
@@ -14,35 +19,26 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const BaseLayout = () => {
+const BaseLayout: React.FC<IBaseLayout> = ({ children }) => {
   const classes = useStyles();
-  const [isActiveId, setActiveId] = React.useState<string>("");
-  const handleChangeActive = (id: string) => {
-    setActiveId(id);
-  };
+  const location = useLocation();
 
   return (
     <Stack className={classes.layout}>
       <Stack direction="row" height="100%">
-        {IsMobile() && !!isActiveId === false ? (
-          <SideBar activeId={isActiveId} handleChangeActive={handleChangeActive} />
+        {IsMobile() ? (
+          location.pathname === "/" || location.pathname === "/home" ? (
+            <SideBar />
+          ) : (
+            <React.Fragment>{children}</React.Fragment>
+          )
         ) : (
-          <></>
-        )}
-        {IsMobile() && !!isActiveId === true ? (
-          <MessagesPage activeId={isActiveId as string} handleChangeActive={handleChangeActive} />
-        ) : (
-          <></>
-        )}
-        {!IsMobile() ? (
           <React.Fragment>
-            <SideBar activeId={isActiveId} handleChangeActive={handleChangeActive} />
-            <MessagesPage activeId={isActiveId as string} handleChangeActive={handleChangeActive} />
+            <SideBar />
+            {/* <Login /> */}
+            {children}
           </React.Fragment>
-        ) : (
-          <></>
         )}
-        {/* <RenderRoutes /> */}
       </Stack>
     </Stack>
   );
